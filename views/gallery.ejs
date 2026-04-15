@@ -1,10 +1,194 @@
 <%- include("partials/header.ejs") %>
 
+<!-- Hero Banner -->
+<div class="faq-hero text-center">
+    <div class="faq-hero-overlay">
+        <h1 class="faq-hero-title">Our Gallery</h1>
+        <p class="faq-hero-sub">A glimpse of the beauty we create every day</p>
+    </div>
+</div>
 
+<div class="container py-5">
 
+    <!-- Filter Tabs -->
+    <div class="gallery-filters text-center mb-5">
+        <button class="gallery-filter-btn active" data-filter="all">All</button>
+        <button class="gallery-filter-btn" data-filter="manicure">Manicure</button>
+        <button class="gallery-filter-btn" data-filter="pedicure">Pedicure</button>
+        <button class="gallery-filter-btn" data-filter="enhancements">Enhancements</button>
+        <button class="gallery-filter-btn" data-filter="nailart">Nail Art</button>
+    </div>
 
+    <!-- Gallery Grid -->
+    <!-- To add your own photos:
+         1. Place image files in public/images/gallery/
+         2. Copy a gallery-item div below
+         3. Update src, alt, and data-category attributes -->
+    <div class="gallery-grid" id="galleryGrid">
 
+        <div class="gallery-item" data-category="manicure">
+            <img src="images/services/classic-delux-manicure.jpg" alt="Classic Deluxe Manicure">
+            <div class="gallery-overlay">
+                <span>Classic Deluxe Manicure</span>
+            </div>
+        </div>
 
+        <div class="gallery-item" data-category="pedicure">
+            <img src="images/services/classic-pedicure.jpg" alt="Classic Pedicure">
+            <div class="gallery-overlay">
+                <span>Classic Pedicure</span>
+            </div>
+        </div>
 
+        <div class="gallery-item" data-category="enhancements">
+            <img src="images/services/dipping-powder.webp" alt="Dipping Powder">
+            <div class="gallery-overlay">
+                <span>Dipping Powder</span>
+            </div>
+        </div>
 
-    <%- include("partials/footer.ejs") %>
+        <div class="gallery-item" data-category="pedicure">
+            <img src="images/services/deluxe-pedicure.webp" alt="Deluxe Pedicure">
+            <div class="gallery-overlay">
+                <span>Classic Deluxe Pedicure</span>
+            </div>
+        </div>
+
+        <div class="gallery-item" data-category="enhancements">
+            <img src="images/services/acrylic-set.avif" alt="Acrylic Set">
+            <div class="gallery-overlay">
+                <span>Acrylic Set</span>
+            </div>
+        </div>
+
+        <div class="gallery-item" data-category="pedicure">
+            <img src="images/services/jelly-spa.webp" alt="Jelly Spa">
+            <div class="gallery-overlay">
+                <span>Relaxing Jelly Spa</span>
+            </div>
+        </div>
+
+        <div class="gallery-item" data-category="manicure">
+            <img src="images/services/mani-spa.jpeg" alt="Spa Manicure">
+            <div class="gallery-overlay">
+                <span>Spa Manicure</span>
+            </div>
+        </div>
+
+        <div class="gallery-item" data-category="enhancements">
+            <img src="images/services/builder-gel.webp" alt="Builder Gel">
+            <div class="gallery-overlay">
+                <span>Builder Gel Set</span>
+            </div>
+        </div>
+
+        <div class="gallery-item" data-category="pedicure">
+            <img src="images/services/detox-pedi.jpg" alt="Detox Pedicure">
+            <div class="gallery-overlay">
+                <span>Detox Spa Pedicure</span>
+            </div>
+        </div>
+
+        <div class="gallery-item" data-category="nailart">
+            <img src="images/index/Nailsmodel1.jpg" alt="Nail Art">
+            <div class="gallery-overlay">
+                <span>Nail Art</span>
+            </div>
+        </div>
+
+        <div class="gallery-item" data-category="pedicure">
+            <img src="images/index/pedicure2.jpg" alt="Pedicure">
+            <div class="gallery-overlay">
+                <span>Pedicure</span>
+            </div>
+        </div>
+
+        <div class="gallery-item" data-category="enhancements">
+            <img src="images/services/hybrid-gel.jpg" alt="Hybrid Gel">
+            <div class="gallery-overlay">
+                <span>Hybrid Gel</span>
+            </div>
+        </div>
+
+        <div class="gallery-item" data-category="pedicure">
+            <img src="images/services/organic-pedi.jpg" alt="Organic Pedicure">
+            <div class="gallery-overlay">
+                <span>Organic Collagen Pedicure</span>
+            </div>
+        </div>
+
+        <div class="gallery-item" data-category="nailart">
+            <img src="images/index/RelaxingPedicure.webp" alt="Relaxing Service">
+            <div class="gallery-overlay">
+                <span>Relaxing Service</span>
+            </div>
+        </div>
+
+        <div class="gallery-item" data-category="nailart">
+            <img src="images/index/CustomerService.jpeg" alt="Our Work">
+            <div class="gallery-overlay">
+                <span>Our Work</span>
+            </div>
+        </div>
+
+        <div class="gallery-item" data-category="pedicure">
+            <img src="images/services/Volcano-spa.webp" alt="Volcano Pedicure">
+            <div class="gallery-overlay">
+                <span>Ultimate Volcano Pedicure</span>
+            </div>
+        </div>
+
+    </div><!-- /.gallery-grid -->
+
+</div>
+
+<!-- Lightbox Modal -->
+<div class="modal fade" id="galleryModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content gallery-modal-content">
+            <button type="button" class="gallery-modal-close" data-bs-dismiss="modal" aria-label="Close">&times;</button>
+            <img id="galleryModalImg" src="" alt="" class="gallery-modal-img">
+            <p id="galleryModalCaption" class="gallery-modal-caption"></p>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Filter buttons
+    const filterBtns = document.querySelectorAll('.gallery-filter-btn');
+    const items = document.querySelectorAll('.gallery-item');
+
+    filterBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            filterBtns.forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+
+            const filter = btn.dataset.filter;
+            items.forEach(item => {
+                if (filter === 'all' || item.dataset.category === filter) {
+                    item.style.display = 'block';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        });
+    });
+
+    // Lightbox
+    const modal = new bootstrap.Modal(document.getElementById('galleryModal'));
+    const modalImg = document.getElementById('galleryModalImg');
+    const modalCaption = document.getElementById('galleryModalCaption');
+
+    items.forEach(item => {
+        item.addEventListener('click', () => {
+            const img = item.querySelector('img');
+            const caption = item.querySelector('.gallery-overlay span');
+            modalImg.src = img.src;
+            modalImg.alt = img.alt;
+            modalCaption.textContent = caption.textContent;
+            modal.show();
+        });
+    });
+</script>
+
+<%- include("partials/footer.ejs") %>
