@@ -1,0 +1,694 @@
+f/* ===========================
+   GLOBAL
+   =========================== */
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    background-color: #fdfaff;
+}
+
+/* ===========================
+   GRADIENT BACKGROUND
+   =========================== */
+.gradient-background {
+    background: linear-gradient(90deg, #efd5ff 0%, #515ada 100%);
+    background-size: 180% 180%;
+    animation: gradient-animation 18s ease infinite;
+}
+
+/* ===========================
+   NAVBAR
+   =========================== */
+#header a {
+    color: black;
+}
+
+#header .navbar-brand {
+    font-family: 'Great Vibes', cursive;
+    font-size: 1.7rem;
+    color: #4a2060 !important;
+    text-shadow: 1px 1px 4px rgba(255, 255, 255, 0.6);
+    letter-spacing: 1px;
+}
+
+@media (min-width: 576px) {
+    #header .navbar-brand { font-size: 2.2rem; }
+}
+
+#header .navbar {
+    overflow: visible;
+    min-height: 80px;
+}
+
+@media (min-width: 768px) {
+    #header .navbar { min-height: 100px; }
+}
+
+#header .navbar img {
+    z-index: 10;
+}
+
+/* Hide center logo on small screens to prevent overlap */
+#logo {
+    display: none !important;
+}
+
+@media (min-width: 768px) {
+    #logo { display: block !important; }
+}
+
+.contact-info {
+    font-style: italic;
+    text-align: right;
+    color: black;
+    font-size: 0.85rem;
+}
+
+/* ===========================
+   MAIN CAROUSEL
+   =========================== */
+.carousel {
+    margin-bottom: 3rem;
+}
+
+#myCarousel .carousel-item {
+    text-align: center;
+    height: 260px;
+}
+
+#myCarousel img {
+    display: block;
+    margin: 0 auto;
+    width: 100%;
+    height: 260px;
+    object-fit: cover;
+}
+
+@media (min-width: 576px) {
+    #myCarousel .carousel-item,
+    #myCarousel img { height: 380px; }
+}
+
+@media (min-width: 992px) {
+    #myCarousel .carousel-item,
+    #myCarousel img { height: 520px; }
+}
+
+@media (min-width: 1400px) {
+    #myCarousel .carousel-item,
+    #myCarousel img { height: 620px; }
+}
+
+/* ===========================
+   BRAND CAROUSEL
+   =========================== */
+#carouselExample img {
+    width: 100%;
+    height: 180px;
+    object-fit: contain;
+}
+
+@media (min-width: 768px) {
+    #carouselExample img { height: 300px; }
+}
+
+/* ===========================
+   HERO SECTION (About page)
+   =========================== */
+.hero-section {
+    background-image: url('../images/shared/nails-spa-scene.jpeg');
+    background-size: cover;
+    background-position: center;
+}
+
+.hero-overlay {
+    background: linear-gradient(135deg, rgba(239, 213, 255, 0.93) 0%, rgba(81, 90, 218, 0.93) 100%);
+    padding: 3rem 1.5rem 4rem;
+}
+
+@media (min-width: 768px) {
+    .hero-overlay { padding: 5rem 2rem 6rem; }
+}
+
+.hero-overlay h1 {
+    font-family: 'Great Vibes', cursive;
+    font-size: 2.6rem;
+    color: #2b0a4e;
+    text-shadow: 1px 2px 6px rgba(255, 255, 255, 0.5);
+}
+
+@media (min-width: 576px) {
+    .hero-overlay h1 { font-size: 3.5rem; }
+}
+
+@media (min-width: 768px) {
+    .hero-overlay h1 { font-size: 4.5rem; }
+}
+
+.hero-overlay p {
+    font-family: 'Playfair Display', serif;
+    font-size: 0.95rem;
+    color: #1a0a30;
+    font-weight: 500;
+    text-shadow: none;
+    line-height: 1.8;
+}
+
+@media (min-width: 768px) {
+    .hero-overlay p { font-size: 1.2rem; }
+}
+
+@media (min-width: 992px) {
+    .hero-overlay p { font-size: 1.4rem; }
+}
+
+/* ===========================
+   SERVICE SECTION HEADERS
+   =========================== */
+.pricing-header h1 {
+    font-family: 'Playfair Display', serif;
+    letter-spacing: 3px;
+    color: #2b0a4e;
+    font-size: 2rem;
+}
+
+@media (min-width: 768px) {
+    .pricing-header h1 { font-size: 2.5rem; }
+}
+
+.pricing-header h1::after {
+    content: '';
+    display: block;
+    width: 60px;
+    height: 3px;
+    background: linear-gradient(90deg, #a4833b, #e6c064);
+    margin: 12px auto 0;
+    border-radius: 2px;
+}
+
+/* ===========================
+   SERVICE CARD ROWS
+   =========================== */
+
+/* Responsive width: full on mobile, narrower on larger screens */
+.row.row-cols-1.row-cols-md-3.w-75 {
+    width: 96% !important;
+    padding-top: 70px; /* space for floating card image (-90px margin) */
+}
+
+/* Desktop: 2nd row+ cards need enough gap for the floating image (-90px) */
+/* mt-5 (48px) + mb-4 (24px) = 72px < 90px needed → overlap. Fix from 4th card on. */
+@media (min-width: 768px) {
+    .row.row-cols-1.row-cols-md-3.w-75 > div:nth-child(n+4) {
+        margin-top: 5rem !important; /* 80px + mb-4 (24px) = 104px > 90px needed */
+        padding-top: 0 !important;
+    }
+}
+
+/* Mobile: fix spacing for stacked cards */
+@media (max-width: 767px) {
+    .row.row-cols-1.row-cols-md-3.w-75 {
+        padding-top: 60px;
+    }
+
+    /* Let row padding handle the first card's top space */
+    .row.row-cols-1.row-cols-md-3.w-75 > div:first-child {
+        margin-top: 0 !important;
+        padding-top: 0 !important;
+    }
+
+    /* Subsequent stacked cards: need > 90px total clearance for floating image */
+    .row.row-cols-1.row-cols-md-3.w-75 > div + div {
+        margin-top: 5rem !important; /* 80px + prev card mb-4 (24px) = 104px > 90px needed */
+        padding-top: 0 !important;
+    }
+}
+
+@media (min-width: 768px) {
+    .row.row-cols-1.row-cols-md-3.w-75 {
+        width: 90% !important;
+    }
+}
+
+@media (min-width: 1200px) {
+    .row.row-cols-1.row-cols-md-3.w-75 {
+        width: 78% !important;
+    }
+}
+
+/* ===========================
+   CARDS
+   =========================== */
+.card {
+    border-color: rgba(230, 192, 100, 0.45) !important;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(74, 32, 96, 0.16) !important;
+}
+
+.card-body img[style*="margin-top: -70px"] {
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.18);
+}
+
+.package-divider {
+    height: 2px;
+    background-image: linear-gradient(90deg, #a4833b, #e6c064);
+    width: 30%;
+    align-self: center;
+    margin: 16px 0;
+}
+
+/* ===========================
+   NAIL ENHANCEMENTS SECTION
+   =========================== */
+.nail-enhanced {
+    background-color: #f5f2eb;
+}
+
+/* ===========================
+   MARKETING SECTION (index)
+   =========================== */
+.bd-placeholder-img.rounded-circle {
+    object-fit: cover;
+}
+
+@media (max-width: 575px) {
+    .bd-placeholder-img.rounded-circle {
+        height: 140px !important;
+        width: 140px !important;
+    }
+}
+
+/* ===========================
+   FEATURETTE (index)
+   =========================== */
+.featurette-image {
+    max-height: 420px;
+    width: 100% !important;
+    height: auto !important;
+    object-fit: cover;
+}
+
+.featurette-heading {
+    font-family: 'Playfair Display', serif;
+    color: #2b0a4e;
+}
+
+/* Stack text above image on mobile */
+@media (max-width: 767px) {
+    .featurette.row > [class*="col-md"] {
+        flex: 0 0 100%;
+        max-width: 100%;
+    }
+    .featurette .order-md-1 { order: 2; }
+    .featurette .order-md-2 { order: 1; }
+}
+
+/* ===========================
+   COUNTER SECTION (about)
+   =========================== */
+.counter {
+    background-color: #1a0a30;
+    padding: 44px 0 56px;
+}
+
+.counter-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 28px;
+}
+
+@media (min-width: 768px) {
+    .counter-list { gap: 56px; }
+}
+
+.counter-item {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    align-items: center;
+    flex: 1 1 120px;
+    max-width: 180px;
+    padding-bottom: 8px;
+    border-bottom: 3px solid #e9b641;
+    color: #fff;
+}
+
+.counter-number__wrapper {
+    display: flex;
+    align-items: flex-start;
+    gap: 4px;
+}
+
+.counter-number__wrapper span {
+    display: inline-block;
+}
+
+.counter-number {
+    font-family: 'Playfair Display', serif;
+    font-size: 44px;
+    line-height: 1;
+}
+
+@media (min-width: 768px) {
+    .counter-number { font-size: 56px; }
+}
+
+.counter-number__suffix {
+    font-size: 24px;
+}
+
+.counter-title {
+    font-size: 0.85rem;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    opacity: 0.85;
+}
+
+/* ===========================
+   FEATURE ICONS (about)
+   =========================== */
+.feature-icon {
+    width: 56px;
+    height: 56px;
+    border-radius: 12px;
+    padding: 8px;
+}
+
+/* ===========================
+   TEAM CARDS (about)
+   =========================== */
+.team-card {
+    overflow: hidden;
+    border-radius: 12px !important;
+}
+
+.team-card img {
+    transition: transform 0.35s ease;
+}
+
+.team-card:hover img {
+    transform: scale(1.03);
+}
+
+@media (min-width: 768px) {
+    .team-card img {
+        height: 420px !important;
+    }
+}
+
+@media (min-width: 1200px) {
+    .team-card img {
+        height: 500px !important;
+    }
+}
+
+/* ===========================
+   ABOUT PAGE — "More Than a Nail Salon" section
+   =========================== */
+@media (max-width: 767px) {
+    .container.py-5 .row.align-items-center img {
+        margin-top: 1.5rem;
+        height: 240px !important;
+    }
+}
+
+/* ===========================
+   CONTAINER
+   =========================== */
+.container_cust {
+    max-width: 1240px;
+    box-sizing: border-box;
+    width: 100%;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* ===========================
+   FOOTER
+   =========================== */
+#footer {
+    margin-top: auto;
+    background-color: #1a0a30;
+    color: #e8d5f5;
+}
+
+.footer-top {
+    padding: 3rem 0 2.5rem;
+    border-bottom: 1px solid rgba(233, 182, 65, 0.25);
+}
+
+.footer-brand {
+    font-family: 'Great Vibes', cursive;
+    font-size: 2rem;
+    color: #e9b641;
+    letter-spacing: 1px;
+    line-height: 1.2;
+    margin-bottom: 0.75rem;
+}
+
+.footer-tagline {
+    font-size: 0.88rem;
+    color: #c9aede;
+    line-height: 1.7;
+    margin-bottom: 1.25rem;
+}
+
+.footer-heading {
+    font-family: 'Playfair Display', serif;
+    color: #e9b641;
+    font-size: 1rem;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    margin-bottom: 1.1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid rgba(233, 182, 65, 0.35);
+}
+
+/* Nav list */
+.footer-nav-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.footer-nav-list a {
+    color: #c9aede;
+    text-decoration: none;
+    font-size: 0.92rem;
+    transition: color 0.2s;
+}
+
+.footer-nav-list a:hover {
+    color: #e9b641;
+}
+
+/* Business hours table */
+.footer-hours-table {
+    width: 100%;
+    font-size: 0.875rem;
+    border-collapse: collapse;
+}
+
+.footer-hours-table td {
+    padding: 5px 0;
+    color: #c9aede;
+}
+
+.footer-hours-table td:first-child {
+    width: 45%;
+    color: #e8d5f5;
+    font-weight: 500;
+}
+
+.footer-hours-sunday td {
+    color: #e9b641 !important;
+}
+
+/* Contact list */
+.footer-contact-list {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 1.25rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.85rem;
+}
+
+.footer-contact-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.65rem;
+    font-size: 0.875rem;
+    color: #c9aede;
+    line-height: 1.6;
+}
+
+.footer-contact-icon {
+    flex-shrink: 0;
+    font-size: 1rem;
+    margin-top: 1px;
+}
+
+.footer-contact-list a {
+    color: #c9aede;
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+.footer-contact-list a:hover {
+    color: #e9b641;
+}
+
+/* Google Map */
+.footer-map {
+    border-radius: 10px;
+    overflow: hidden;
+    border: 1px solid rgba(233, 182, 65, 0.3);
+}
+
+/* Footer bottom bar */
+.footer-bottom {
+    padding: 1.1rem 0;
+}
+
+.footer-bottom p {
+    font-size: 0.82rem;
+    color: #7a5a9a;
+    text-align: center;
+    margin: 0;
+}
+
+/* ===========================
+   FAQ PAGE
+   =========================== */
+.faq-hero {
+    background-image: url('../images/shared/nails-spa-scene.jpeg');
+    background-size: cover;
+    background-position: center;
+}
+
+.faq-hero-overlay {
+    background: linear-gradient(135deg, rgba(239, 213, 255, 0.93) 0%, rgba(81, 90, 218, 0.93) 100%);
+    padding: 3.5rem 1.5rem;
+}
+
+@media (min-width: 768px) {
+    .faq-hero-overlay { padding: 5rem 2rem; }
+}
+
+.faq-hero-title {
+    font-family: 'Great Vibes', cursive;
+    font-size: 3rem;
+    color: #2b0a4e;
+    text-shadow: 1px 2px 6px rgba(255, 255, 255, 0.5);
+    margin-bottom: 0.5rem;
+}
+
+@media (min-width: 768px) {
+    .faq-hero-title { font-size: 4.5rem; }
+}
+
+.faq-hero-sub {
+    font-family: 'Playfair Display', serif;
+    font-size: 1rem;
+    color: #1a0a30;
+    margin: 0;
+}
+
+@media (min-width: 768px) {
+    .faq-hero-sub { font-size: 1.2rem; }
+}
+
+/* Category label */
+.faq-category-label {
+    font-family: 'Playfair Display', serif;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 2.5px;
+    color: #a4833b;
+    margin-bottom: 0.75rem;
+    padding-left: 2px;
+}
+
+/* Accordion items */
+.faq-item {
+    border: 1px solid rgba(164, 131, 59, 0.3) !important;
+    border-radius: 10px !important;
+    margin-bottom: 0.5rem;
+    overflow: hidden;
+}
+
+.faq-btn {
+    background-color: #fdfaff !important;
+    color: #2b0a4e !important;
+    font-weight: 600;
+    font-size: 0.95rem;
+    padding: 1rem 1.25rem;
+    box-shadow: none !important;
+}
+
+.faq-btn:not(.collapsed) {
+    background-color: #f3eaff !important;
+    color: #4a2060 !important;
+}
+
+.faq-btn::after {
+    filter: invert(18%) sepia(50%) saturate(700%) hue-rotate(260deg);
+}
+
+.faq-body {
+    font-size: 0.92rem;
+    color: #3a2050;
+    line-height: 1.75;
+    background-color: #fdfaff;
+    padding: 1rem 1.25rem 1.2rem;
+}
+
+.faq-body a {
+    color: #4a2060;
+    font-weight: 500;
+    text-decoration: underline;
+}
+
+.faq-body a:hover {
+    color: #a4833b;
+}
+
+/* CTA block */
+.faq-cta {
+    background: linear-gradient(135deg, #f3eaff 0%, #e8e4ff 100%);
+    border-radius: 16px;
+    padding: 2.5rem 1.5rem;
+    margin-bottom: 1rem;
+}
+
+.faq-cta-text {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.4rem;
+    color: #2b0a4e;
+    margin-bottom: 1rem;
+}
+
+.faq-cta-btn {
+    background-color: #4a2060;
+    color: white;
+    padding: 0.75rem 2rem;
+    border-radius: 50px;
+    font-size: 1rem;
+    transition: background-color 0.2s, transform 0.2s;
+}
+
+.faq-cta-btn:hover {
+    background-color: #2b0a4e;
+    color: white;
+    transform: translateY(-2px);
+}
