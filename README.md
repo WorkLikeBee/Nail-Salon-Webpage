@@ -1,5 +1,7 @@
 # Fantastic Nails & Spa
 
+# live webste: https://nail-salon-webpage.onrender.com/services
+
 A responsive business website for **Fantastic Nails & Spa**, a nail salon located in Centralia, WA. Built with Node.js, Express, and EJS templating.
 
 ---
