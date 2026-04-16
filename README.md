@@ -1,8 +1,8 @@
 # Fantastic Nails & Spa
 
-# live webste: https://nail-salon-webpage.onrender.com/
+> A responsive business website for a nail salon located in Centralia, WA.
 
-A responsive business website for **Fantastic Nails & Spa**, a nail salon located in Centralia, WA. Built with Node.js, Express, and EJS templating.
+🌐 **Live Site:** [nail-salon-webpage.onrender.com](https://nail-salon-webpage.onrender.com)
 
 ---
 
@@ -14,16 +14,22 @@ A responsive business website for **Fantastic Nails & Spa**, a nail salon locate
 | About | `/about` | Salon story, core values, team, and stats counter |
 | Services | `/services` | Pricing cards for manicures, pedicures, nail enhancements, and waxing |
 | FAQ | `/FAQ` | Accordion-style frequently asked questions |
-| Gallery | `/gallery` | Photo gallery of nail work |
+| Gallery | `/gallery` | Filterable photo gallery with lightbox |
+| Contact | `/contact` | Contact form with email delivery via Nodemailer |
 
 ---
 
 ## Tech Stack
 
-- **Backend:** Node.js, Express 5
-- **Templating:** EJS
-- **Frontend:** Bootstrap 5, custom CSS
-- **Fonts:** Google Fonts (Playfair Display, Great Vibes)
+| Layer | Technology |
+|---|---|
+| Runtime | Node.js |
+| Framework | Express 5 |
+| Templating | EJS |
+| Styling | Bootstrap 5 + Custom CSS |
+| Email | Nodemailer + Gmail SMTP |
+| Fonts | Google Fonts (Playfair Display, Great Vibes) |
+| Hosting | Render |
 
 ---
 
@@ -36,8 +42,8 @@ A responsive business website for **Fantastic Nails & Spa**, a nail salon locate
 
 ```bash
 # Clone the repository
-git clone https://github.com/YOUR_USERNAME/FantasticNailsWebsite.git
-cd FantasticNailsWebsite
+git clone https://github.com/WorkLikeBee/Nail-Salon-Webpage.git
+cd Nail-Salon-Webpage
 
 # Install dependencies
 npm install
@@ -46,23 +52,38 @@ npm install
 npm start
 ```
 
-The app will run at `http://localhost:3000`.
+The app runs at `http://localhost:3000`.
+
+---
+
+## Environment Variables
+
+Create a `.env` file in the project root:
+
+```
+EMAIL_ADMIN=your-gmail@gmail.com
+EMAIL_PASS=your-gmail-app-password
+```
+
+> `EMAIL_PASS` must be a [Gmail App Password](https://myaccount.google.com/apppasswords) — not your regular Gmail password. Requires 2-Step Verification enabled on your Google account.
 
 ---
 
 ## Project Structure
 
 ```
-FantasticNailsWebsite/
-├── index.js              # Express server entry point
+Nail-Salon-Webpage/
+├── index.js                  # Express server & routes
 ├── package.json
+├── .env                      # Email credentials (not committed)
 ├── public/
 │   ├── images/
-│   │   ├── header/       # Logo
-│   │   ├── index/        # Home page images
-│   │   ├── about/        # About page images
-│   │   ├── services/     # Service card images
-│   │   └── shared/       # Images shared across pages
+│   │   ├── header/           # Logo
+│   │   ├── index/            # Home page images
+│   │   ├── about/            # About page images
+│   │   ├── services/         # Service card images
+│   │   ├── gallery/          # Gallery photos
+│   │   └── shared/           # Images shared across pages
 │   ├── scripts/
 │   │   └── main.js
 │   └── styles/
@@ -75,23 +96,24 @@ FantasticNailsWebsite/
     ├── about.ejs
     ├── services.ejs
     ├── FAQ.ejs
-    └── gallery.ejs
+    ├── gallery.ejs
+    └── contact.ejs
 ```
 
 ---
 
-## Deployment
+## Deployment on Render
 
-This project is configured for deployment on [Render](https://render.com).
-
-- **Build command:** `npm install`
-- **Start command:** `npm start`
-- The server port is set dynamically via `process.env.PORT`, falling back to `3000` locally.
+| Field | Value |
+|---|---|
+| **Build Command** | `npm install` |
+| **Start Command** | `npm start` |
+| **Environment Variables** | Add `EMAIL_ADMIN` and `EMAIL_PASS` in Render dashboard → Environment |
 
 ---
 
 ## Contact
 
-**Fantastic Nails & Spa**
-507B Harrison Avenue, Centralia, WA 98531
+**Fantastic Nails & Spa**  
+507B Harrison Avenue, Centralia, WA 98531  
 📞 (360) 736-4123
