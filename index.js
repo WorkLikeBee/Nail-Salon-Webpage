@@ -4,8 +4,6 @@ import nodemailer from "nodemailer";
 import "dotenv/config";
 
 const app = express();
-console.log("EMAIL_ADMIN:", process.env.EMAIL_ADMIN);
-console.log("EMAIL_PASS loaded:", !!process.env.EMAIL_PASS);
 const port = process.env.PORT || 3000;
 
 const transporter = nodemailer.createTransport({
