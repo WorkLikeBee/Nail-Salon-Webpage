@@ -1,13 +1,14 @@
 {
   "dependencies": {
+    "dotenv": "^17.4.2",
     "ejs": "^5.0.1",
-    "express": "^5.2.1"
+    "express": "^5.2.1",
+    "nodemailer": "^8.0.5"
   },
   "name": "fantasticnailswebsite",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "devDependencies": {},
   "scripts": {
     "start": "node index.js",
     "test": "echo \"Error: no test specified\" && exit 1"

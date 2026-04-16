@@ -833,3 +833,127 @@ body {
 .gallery-modal-close:hover {
     background: rgba(0,0,0,0.7);
 }
+
+/* ===========================
+   CONTACT PAGE
+   =========================== */
+.contact-section-heading {
+    font-family: 'Playfair Display', serif;
+    color: #2b0a4e;
+    font-size: 1.3rem;
+    margin-bottom: 0.75rem;
+}
+
+/* Info block */
+.contact-info-block {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+}
+
+.contact-info-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+}
+
+.contact-info-icon {
+    font-size: 1.3rem;
+    flex-shrink: 0;
+    margin-top: 2px;
+}
+
+.contact-info-label {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: #a4833b;
+    font-weight: 600;
+    margin-bottom: 0.2rem;
+}
+
+.contact-info-value {
+    font-size: 0.92rem;
+    color: #3a2050;
+    line-height: 1.6;
+    text-decoration: none;
+}
+
+a.contact-info-value:hover {
+    color: #4a2060;
+    text-decoration: underline;
+}
+
+/* Form card */
+.contact-form-card {
+    background: #fdfaff;
+    border: 1px solid rgba(164, 131, 59, 0.25);
+    border-radius: 16px;
+    padding: 2rem;
+}
+
+@media (min-width: 768px) {
+    .contact-form-card { padding: 2.5rem; }
+}
+
+.contact-label {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #2b0a4e;
+    margin-bottom: 0.4rem;
+    display: block;
+}
+
+.contact-input {
+    border: 1.5px solid rgba(164, 131, 59, 0.3);
+    border-radius: 8px;
+    padding: 0.65rem 0.9rem;
+    font-size: 0.92rem;
+    color: #2b0a4e;
+    background-color: #fff;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.contact-input:focus {
+    border-color: #4a2060;
+    box-shadow: 0 0 0 3px rgba(74, 32, 96, 0.1);
+    outline: none;
+}
+
+.contact-submit-btn {
+    background-color: #4a2060;
+    color: white;
+    border: none;
+    border-radius: 50px;
+    padding: 0.85rem;
+    font-size: 1rem;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    cursor: pointer;
+    transition: background-color 0.2s, transform 0.2s;
+    margin-top: 0.5rem;
+}
+
+.contact-submit-btn:hover {
+    background-color: #2b0a4e;
+    transform: translateY(-2px);
+}
+
+/* Alerts */
+.contact-alert-success {
+    background-color: #edf7ed;
+    border: 1px solid #a3d9a5;
+    color: #2d6a2f;
+    border-radius: 10px;
+    padding: 0.85rem 1rem;
+    font-size: 0.92rem;
+}
+
+.contact-alert-error {
+    background-color: #fdf0f0;
+    border: 1px solid #f5c6cb;
+    color: #842029;
+    border-radius: 10px;
+    padding: 0.85rem 1rem;
+    font-size: 0.92rem;
+}
