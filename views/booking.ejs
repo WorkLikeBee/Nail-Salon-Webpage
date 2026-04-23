@@ -1,0 +1,173 @@
+<%- include("partials/header.ejs") %>
+
+<div class="container py-5">
+    <div class="text-center mb-5">
+        <h1 class="display-4 fw-bold" style="color:#4a2060">Book Your Appointment</h1>
+        <p class="lead text-muted">Fill out the form below and we'll confirm your appointment shortly.</p>
+    </div>
+
+    <% if (success === true) { %>
+    <div class="alert alert-success text-center mx-auto" style="max-width:700px" role="alert">
+        <h4 class="fw-bold">Booking Request Received!</h4>
+        <p class="mb-0">Thank you! A confirmation email is on its way. We'll reach out shortly to confirm your appointment.</p>
+    </div>
+    <% } %>
+
+    <div class="row justify-content-center">
+        <div class="col-12 col-lg-8">
+            <form action="/booking" method="POST" class="p-4 p-md-5 shadow rounded bg-white">
+
+                <h5 class="fw-semibold mb-3" style="color:#4a2060">1. Choose Your Service</h5>
+                <div class="row g-3 mb-4">
+                    <div class="col-12 col-md-6">
+                        <label class="form-label fw-semibold">Service Category</label>
+                        <select class="form-select" id="category" required>
+                            <option value="">-- Select Category --</option>
+                            <option value="Manicures">Manicures</option>
+                            <option value="Nail Enhancements">Nail Enhancements</option>
+                            <option value="Pedicures">Pedicures</option>
+                            <option value="Waxing">Waxing</option>
+                        </select>
+                    </div>
+                    <div class="col-12 col-md-6">
+                        <label class="form-label fw-semibold">Service</label>
+                        <select class="form-select" id="service" name="service_id" required>
+                            <option value="">-- Select Category First --</option>
+                            <% services.forEach(s => { %>
+                                <option value="<%= s.id %>"
+                                    data-category="<%= s.category %>"
+                                    data-price="<%= s.price_from %>"
+                                    style="display:none">
+                                    <%= s.name %> (from $<%= s.price_from %>)
+                                </option>
+                            <% }) %>
+                        </select>
+                    </div>
+                    <div class="col-12">
+                        <div id="priceDisplay" class="text-muted fst-italic small" style="display:none">
+                            Estimated starting price: <span id="priceValue" class="fw-semibold text-dark"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <hr>
+                <h5 class="fw-semibold mb-3 mt-4" style="color:#4a2060">2. Pick a Date & Time</h5>
+                <div class="row g-3 mb-4">
+                    <div class="col-12 col-md-4">
+                        <label class="form-label fw-semibold">Technician</label>
+                        <select class="form-select" id="technician" name="technician_id" required>
+                            <% technicians.forEach(t => { %>
+                                <option value="<%= t.id %>"><%= t.name %></option>
+                            <% }) %>
+                        </select>
+                    </div>
+                    <div class="col-12 col-md-4">
+                        <label class="form-label fw-semibold">Date</label>
+                        <input type="date" class="form-control" id="bookingDate" name="booking_date"
+                            required min="<%= today %>">
+                    </div>
+                    <div class="col-12 col-md-4">
+                        <label class="form-label fw-semibold">Time Slot</label>
+                        <select class="form-select" id="timeSlot" name="time_slot" required>
+                            <option value="">-- Pick Date First --</option>
+                        </select>
+                    </div>
+                    <div class="col-12">
+                        <p class="text-muted small mb-0">Hours: Mon–Sat 9 AM – 7 PM &nbsp;|&nbsp; Sun 10 AM – 5 PM</p>
+                    </div>
+                </div>
+
+                <hr>
+                <h5 class="fw-semibold mb-3 mt-4" style="color:#4a2060">3. Your Contact Info</h5>
+                <div class="row g-3 mb-4">
+                    <div class="col-12 col-md-6">
+                        <label class="form-label fw-semibold">Full Name</label>
+                        <input type="text" class="form-control" name="client_name" placeholder="Jane Doe" required>
+                    </div>
+                    <div class="col-12 col-md-6">
+                        <label class="form-label fw-semibold">Email</label>
+                        <input type="email" class="form-control" name="client_email" placeholder="jane@example.com" required>
+                    </div>
+                    <div class="col-12 col-md-6">
+                        <label class="form-label fw-semibold">Phone <span class="text-muted fw-normal">(optional)</span></label>
+                        <input type="tel" class="form-control" name="client_phone" placeholder="(360) 555-1234">
+                    </div>
+                    <div class="col-12 col-md-6">
+                        <label class="form-label fw-semibold">Notes <span class="text-muted fw-normal">(optional)</span></label>
+                        <textarea class="form-control" name="notes" rows="2" placeholder="Any special requests or allergies?"></textarea>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn-lg w-100 text-white fw-semibold" style="background-color:#4a2060">
+                    Request Appointment
+                </button>
+                <p class="text-muted text-center small mt-2 mb-0">
+                    You'll receive an email confirmation once we approve your booking.
+                </p>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+// Filter service options by category
+document.getElementById('category').addEventListener('change', function () {
+    const cat = this.value;
+    const serviceSelect = document.getElementById('service');
+    serviceSelect.value = '';
+    Array.from(serviceSelect.options).forEach(opt => {
+        if (!opt.value) { opt.textContent = '-- Select Service --'; return; }
+        opt.style.display = opt.dataset.category === cat ? '' : 'none';
+    });
+    document.getElementById('priceDisplay').style.display = 'none';
+});
+
+// Show price estimate when a service is selected
+document.getElementById('service').addEventListener('change', function () {
+    const opt = this.options[this.selectedIndex];
+    if (opt && opt.dataset.price) {
+        document.getElementById('priceValue').textContent = `From $${opt.dataset.price}`;
+        document.getElementById('priceDisplay').style.display = '';
+    } else {
+        document.getElementById('priceDisplay').style.display = 'none';
+    }
+});
+
+// Load available time slots whenever date or technician changes
+async function loadSlots() {
+    const date = document.getElementById('bookingDate').value;
+    const techId = document.getElementById('technician').value;
+    const slotSelect = document.getElementById('timeSlot');
+
+    if (!date) {
+        slotSelect.innerHTML = '<option value="">-- Pick Date First --</option>';
+        return;
+    }
+
+    slotSelect.innerHTML = '<option value="">Loading...</option>';
+    try {
+        const res = await fetch(`/api/available-slots?date=${date}&technician_id=${techId}`);
+        const slots = await res.json();
+
+        if (slots.length === 0) {
+            slotSelect.innerHTML = '<option value="">No slots available — try another date</option>';
+            return;
+        }
+
+        slotSelect.innerHTML = '<option value="">-- Select Time --</option>' +
+            slots.map(s => {
+                const [h, m] = s.split(':');
+                const hour = parseInt(h);
+                const label = `${hour > 12 ? hour - 12 : (hour === 0 ? 12 : hour)}:${m} ${hour >= 12 ? 'PM' : 'AM'}`;
+                return `<option value="${s}">${label}</option>`;
+            }).join('');
+    } catch (e) {
+        slotSelect.innerHTML = '<option value="">Error loading slots — please try again</option>';
+    }
+}
+
+document.getElementById('bookingDate').addEventListener('change', loadSlots);
+document.getElementById('technician').addEventListener('change', loadSlots);
+</script>
+
+<%- include("partials/footer.ejs") %>

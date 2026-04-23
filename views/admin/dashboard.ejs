@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard – Fantastic Nails & Spa</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .badge-pending   { background:#fff3cd; color:#856404; }
+        .badge-confirmed { background:#d1e7dd; color:#0f5132; }
+        .badge-cancelled { background:#f8d7da; color:#842029; }
+    </style>
+</head>
+<body class="bg-light">
+
+<nav class="navbar px-3" style="background-color:#4a2060">
+    <span class="navbar-brand text-white fw-bold">Fantastic Nails – Admin Dashboard</span>
+    <a href="/admin/change-password" class="btn btn-outline-light btn-sm">Change Password</a>
+    <a href="/admin/logout" class="btn btn-outline-light btn-sm">Logout</a>
+</nav>
+
+<div class="container-fluid py-4 px-4">
+
+    <!-- Stats row -->
+    <div class="row g-3 mb-4">
+        <div class="col-6 col-md-3">
+            <div class="card text-center p-3 border-warning h-100">
+                <div class="fs-1 fw-bold text-warning"><%= counts.pending %></div>
+                <div class="text-muted small">Pending</div>
+            </div>
+        </div>
+        <div class="col-6 col-md-3">
+            <div class="card text-center p-3 border-success h-100">
+                <div class="fs-1 fw-bold text-success"><%= counts.confirmed %></div>
+                <div class="text-muted small">Confirmed</div>
+            </div>
+        </div>
+        <div class="col-6 col-md-3">
+            <div class="card text-center p-3 h-100" style="border-color:#4a2060">
+                <div class="fs-1 fw-bold" style="color:#4a2060"><%= counts.today %></div>
+                <div class="text-muted small">Today</div>
+            </div>
+        </div>
+        <div class="col-6 col-md-3">
+            <div class="card text-center p-3 h-100">
+                <div class="fs-1 fw-bold text-secondary"><%= counts.total %></div>
+                <div class="text-muted small">All Time</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Filter buttons -->
+    <div class="mb-3 d-flex gap-2 flex-wrap">
+        <a href="/admin?status=all"       class="btn btn-sm <%= filter === 'all'       ? 'btn-dark'            : 'btn-outline-secondary' %>">All</a>
+        <a href="/admin?status=pending"   class="btn btn-sm <%= filter === 'pending'   ? 'btn-warning'         : 'btn-outline-warning'   %>">Pending</a>
+        <a href="/admin?status=confirmed" class="btn btn-sm <%= filter === 'confirmed' ? 'btn-success'         : 'btn-outline-success'   %>">Confirmed</a>
+        <a href="/admin?status=cancelled" class="btn btn-sm <%= filter === 'cancelled' ? 'btn-danger'          : 'btn-outline-danger'    %>">Cancelled</a>
+    </div>
+
+    <!-- Bookings table -->
+    <div class="card shadow-sm">
+        <div class="table-responsive">
+            <table class="table table-hover align-middle mb-0">
+                <thead style="background-color:#4a2060; color:white">
+                    <tr>
+                        <th class="px-3">#</th>
+                        <th>Client</th>
+                        <th>Service</th>
+                        <th>Technician</th>
+                        <th>Date</th>
+                        <th>Time</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% if (bookings.length === 0) { %>
+                        <tr>
+                            <td colspan="8" class="text-center text-muted py-5">No bookings found.</td>
+                        </tr>
+                    <% } %>
+                    <% bookings.forEach(b => {
+                        const dateStr = b.booking_date
+                            ? new Date(b.booking_date).toLocaleDateString('en-US', {
+                                weekday: 'short', month: 'short', day: 'numeric', year: 'numeric', timeZone: 'UTC'
+                              })
+                            : '';
+                    %>
+                    <tr>
+                        <td class="px-3 text-muted small"><%= b.id %></td>
+                        <td>
+                            <div class="fw-semibold"><%= b.client_name %></div>
+                            <div class="text-muted small"><%= b.client_email %></div>
+                            <% if (b.client_phone) { %>
+                                <div class="text-muted small"><%= b.client_phone %></div>
+                            <% } %>
+                        </td>
+                        <td>
+                            <div><%= b.service_name %></div>
+                            <div class="text-muted small">From $<%= b.price_from %></div>
+                        </td>
+                        <td><%= b.technician_name %></td>
+                        <td class="small text-nowrap"><%= dateStr %></td>
+                        <td class="small text-nowrap"><%= b.time_display %></td>
+                        <td>
+                            <span class="badge rounded-pill badge-<%= b.status %>" style="font-size:0.75em;padding:5px 10px">
+                                <%= b.status.charAt(0).toUpperCase() + b.status.slice(1) %>
+                            </span>
+                        </td>
+                        <td class="text-nowrap">
+                            <% if (b.status !== 'confirmed') { %>
+                                <form action="/admin/booking/<%= b.id %>/status?status=<%= filter %>" method="POST" class="d-inline">
+                                    <input type="hidden" name="status" value="confirmed">
+                                    <button class="btn btn-success btn-sm">Confirm</button>
+                                </form>
+                            <% } %>
+                            <% if (b.status !== 'cancelled') { %>
+                                <form action="/admin/booking/<%= b.id %>/status?status=<%= filter %>" method="POST" class="d-inline"
+                                      onsubmit="return confirm('Cancel this booking for <%= b.client_name %>?')">
+                                    <input type="hidden" name="status" value="cancelled">
+                                    <button class="btn btn-danger btn-sm">Cancel</button>
+                                </form>
+                            <% } %>
+                            <% if (b.notes) { %>
+                                <button class="btn btn-outline-secondary btn-sm"
+                                    data-bs-toggle="tooltip" data-bs-placement="top"
+                                    title="<%= b.notes %>">Note</button>
+                            <% } %>
+                        </td>
+                    </tr>
+                    <% }) %>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    document.querySelectorAll('[data-bs-toggle="tooltip"]').forEach(el => new bootstrap.Tooltip(el));
+</script>
+</body>
+</html>
