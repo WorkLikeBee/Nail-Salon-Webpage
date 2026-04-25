@@ -1,5 +1,4 @@
 import express from "express";
-import bodyParser from "body-parser";
 import nodemailer from "nodemailer";
 import "dotenv/config";
 import pg from "pg";
@@ -43,7 +42,7 @@ app.use(session({
     saveUninitialized: false,
 }));
 app.use(express.static("public"));
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(passport.initialize());
 app.use(passport.session());
